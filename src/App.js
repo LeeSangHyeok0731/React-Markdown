@@ -1,37 +1,32 @@
 import React, { useState } from "react";
 import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 
 const MarkdownEditor = () => {
   const [markdown, setMarkdown] = useState("");
 
   return (
     <div style={{ display: "flex", gap: "20px" }}>
+      {/* Markdown 입력창 */}
       <textarea
         value={markdown}
         onChange={(e) => setMarkdown(e.target.value)}
         style={{
           width: "50%",
           height: "400px",
-          padding: "10px",
-          fontSize: "16px",
-          border: "1px solid #ddd",
-          borderRadius: "4px",
         }}
-        placeholder="마크다운으로 작성해 주세요"
+        placeholder="Enter your Markdown here..."
       />
 
+      {/* Markdown 렌더링 */}
       <div
         style={{
           width: "50%",
           height: "400px",
-          overflow: "auto",
-          padding: "10px",
-          border: "1px solid #ddd",
-          borderRadius: "4px",
           background: "#f9f9f9",
         }}
       >
-        <ReactMarkdown>{markdown}</ReactMarkdown>
+        <ReactMarkdown rehypePlugins={[rehypeRaw]}>{markdown}</ReactMarkdown>
       </div>
     </div>
   );
